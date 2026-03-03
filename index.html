@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calligraphy Font Generator</title>
+  <meta name="description"
+    content="Generate beautiful calligraphy text, customize styling with advanced controls, and instantly paste to Instagram, Facebook, or any site." />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="container header-content">
+      <div class="header-text">
+        <h1>Calligraphy Font Generator</h1>
+        <p>Type your text, customize styling, and copy beautiful calligraphy fonts instantly.</p>
+      </div>
+      <!-- Dropdown Navigation -->
+      <div class="dropdown">
+        <button class="dropbtn">Other Fonts ▼</button>
+        <div class="dropdown-content">
+          <a href="index.html" class="active">Calligraphy Fonts</a>
+          <a href="instagram-fonts.html">Instagram Fonts</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main container generator-layout" data-font-type="calligraphy">
+    <!-- Top Row: Input -->
+    <section class="generator-header-col">
+      <div class="input-card">
+        <textarea id="main-input" placeholder="Type your text here to preview..." aria-label="Text to preview"
+          rows="2"></textarea>
+        <div class="input-footer">
+          <span class="char-count" id="char-count">0 / 200</span>
+          <button id="reset-btn" class="reset-btn">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Row: 2-Column Previews -->
+    <section class="generator-main-col">
+      <div class="preview-area" id="preview-container">
+        <!-- Preview rows rendered by JS -->
+      </div>
+    </section>
+  </main>
+  <script src="./js/app.js"></script>
+</body>
+
+</html>

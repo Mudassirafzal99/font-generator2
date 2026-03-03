@@ -1,0 +1,306 @@
+:root {
+  --clr-bg: #0f172a;
+  --clr-surface: #1e293b;
+  --clr-surface-hover: #334155;
+  --clr-text: #f8fafc;
+  --clr-text-muted: #94a3b8;
+  --clr-gold: #d4af37;
+  --clr-gold-dim: rgba(212, 175, 55, 0.4);
+  --clr-border: #334155;
+
+  --font-ui: 'Inter', sans-serif;
+  --radius: 12px;
+  --transition: 0.2s ease-in-out;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-ui);
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.app-header {
+  padding: 40px 0 20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.header-text h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--clr-text);
+}
+
+.header-text p {
+  color: var(--clr-text-muted);
+  font-size: 1.1rem;
+}
+
+/* Dropdown styling */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: var(--clr-surface);
+  color: var(--clr-text);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dropbtn:hover,
+.dropdown:hover .dropbtn {
+  background-color: var(--clr-surface-hover);
+  border-color: var(--clr-gold-dim);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background-color: var(--clr-surface);
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: var(--clr-text);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--clr-surface-hover);
+}
+
+.dropdown-content a.active {
+  color: var(--clr-gold);
+  background-color: rgba(212, 175, 55, 0.1);
+  border-left: 3px solid var(--clr-gold);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Layout Restructure */
+.generator-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-bottom: 80px;
+}
+
+/* Base Card Style */
+.card-base {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+/* Input Area */
+.input-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+#main-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--clr-text);
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  resize: vertical;
+  min-height: 60px;
+}
+
+#main-input:focus {
+  outline: none;
+}
+
+.input-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--clr-border);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.char-count {
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+}
+
+.reset-btn {
+  background: transparent;
+  color: var(--clr-text-muted);
+  border: 1px solid var(--clr-border);
+  padding: 6px 16px;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.reset-btn:hover {
+  border-color: var(--clr-text-muted);
+  color: var(--clr-text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+
+/* Preview Area Layout (2 Columns) */
+.preview-area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 860px) {
+  .preview-area {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Preview Row Cards */
+.preview-row {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fontly Hover Effect */
+.preview-row:hover {
+  transform: scale(1.02) translateY(-4px);
+  border-color: var(--clr-gold);
+  box-shadow: 0 0 0 1px var(--clr-gold-dim), 0 12px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.preview-header {
+  grid-column: 1 / -1;
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+/* Real-time preview container */
+.preview-text-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 8px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.preview-text-container::-webkit-scrollbar {
+  display: none;
+}
+
+.category-header {
+  grid-column: 1 / -1;
+}
+
+/* Output styling */
+.preview-output {
+  color: var(--clr-text);
+  font-size: 40px;
+  transition: color 0.1s, font-size 0.1s, letter-spacing 0.1s;
+}
+
+.copy-btn {
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  border: 1px solid var(--clr-gold);
+  /* Refined: Golden border */
+  padding: 10px 24px;
+  border-radius: 25px;
+  /* Perfectly rounded */
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copy-btn:hover {
+  background: var(--clr-surface-hover);
+  color: var(--clr-gold);
+  border-color: var(--clr-gold);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.copy-btn.copied {
+  background: var(--clr-gold);
+  color: #000;
+  border-color: var(--clr-gold);
+}
