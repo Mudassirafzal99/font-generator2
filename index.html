@@ -2,55 +2,428 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calligraphy Font Generator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FontiFy — Calligraphy & Instagram Font Generator</title>
   <meta name="description"
-    content="Generate beautiful calligraphy text, customize styling with advanced controls, and instantly paste to Instagram, Facebook, or any site." />
+    content="Premium navy + gold font generator for calligraphy and Instagram bio fonts. Copy instantly, compare fonts, and explore trending styles." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Allura&family=Alex+Brush&family=Great+Vibes&family=Parisienne&family=Sacramento&family=Pacifico&family=Dancing+Script:wght@400;600;700&family=Satisfy&family=Cookie&family=Kaushan+Script&family=Yellowtail&family=Marck+Script&family=Oleo+Script:wght@400;700&family=Mr+Dafoe&family=Seaweed+Script&family=Rochester&family=Italianno&family=Calligraffitti&family=Damion&family=Qwigley&family=Gwendolyn:wght@400;700&family=Petit+Formal+Script&family=Meie+Script&family=Pinyon+Script&family=Fuggles&family=Euphoria+Script&family=MonteCarlo&family=WindSong:wght@400;500&display=swap"
+    rel="stylesheet" />
+
   <link rel="stylesheet" href="./css/styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 
 <body>
-  <div class="page-wrapper">
-    <header class="app-header">
-      <div class="container header-content">
-        <div class="header-text">
-          <h1>Calligraphy Font Generator</h1>
-          <p>Type your text, customize styling, and copy beautiful calligraphy fonts instantly.</p>
-        </div>
-        <!-- Dropdown Navigation -->
-        <div class="dropdown">
-          <button class="dropbtn">Other Fonts ▼</button>
-          <div class="dropdown-content">
-            <a href="index.html" class="active">Calligraphy Fonts</a>
-            <a href="instagram-fonts.html">Instagram Fonts</a>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="FontiFy Home">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span class="brand-text">FontiFy</span>
+      </a>
+
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false">
+        <span class="sr-only">Open menu</span>
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav" id="primary-nav">
+        <a href="index.html">Home</a>
+        <a href="#calligraphy">Calligraphy</a>
+        <a href="#instagram">Instagram</a>
+        <a href="#tips">Tips</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-gold" href="#pricing">Unlock Premium</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container">
+        <div class="badge">Modern • Premium • Tool Website</div>
+        <h1 class="hero-title">
+          Fancy Text &amp; <span class="gold-gradient">Calligraphy Font Generator</span>
+        </h1>
+        <p class="hero-subtitle">Type once, preview styles instantly, copy with one click, and compare fonts
+          side-by-side.</p>
+        <div class="hero-underline"></div>
+
+        <section class="tool-card" aria-label="Font generator">
+          <div class="tool-head">
+            <div class="tabs" role="tablist" aria-label="Font sections">
+              <button class="tab is-active" role="tab" aria-selected="true" data-tab="panel-calli">Calligraphy</button>
+              <button class="tab" role="tab" aria-selected="false" data-tab="panel-ig">Instagram</button>
+            </div>
+
+            <div class="tool-actions">
+              <div class="counter" id="charCounter">0 / 200</div>
+              <button class="btn btn-outline btn-reset" id="resetBtn" type="button">Reset</button>
+            </div>
           </div>
+
+          <div class="tool-body">
+            <label class="sr-only" for="userText">Enter your text</label>
+            <textarea id="userText" class="text-input" maxlength="200" rows="3"
+              placeholder="Type here… (e.g., Tool Zonic)"></textarea>
+
+            <!-- Calligraphy panel -->
+            <section id="panel-calli" class="panel is-active" role="tabpanel">
+              <div class="section-head" id="calligraphy">
+                <h2 class="section-title">Calligraphy Fonts</h2>
+                <p class="section-desc">30+ premium styles with clean cards and instant copy.</p>
+              </div>
+
+              <div class="font-grid" id="calligraphyGrid">
+                <!-- 30 calligraphy cards -->
+                <article class="font-card" data-font-class="f-allura">
+                  <div class="font-label">Allura</div>
+                  <div class="font-preview f-allura" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-alex">
+                  <div class="font-label">Alex Brush</div>
+                  <div class="font-preview f-alex" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-gv">
+                  <div class="font-label">Great Vibes</div>
+                  <div class="font-preview f-gv" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-paris">
+                  <div class="font-label">Parisienne</div>
+                  <div class="font-preview f-paris" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-sac">
+                  <div class="font-label">Sacramento</div>
+                  <div class="font-preview f-sac" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-pacifico">
+                  <div class="font-label">Pacifico</div>
+                  <div class="font-preview f-pacifico" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+
+                <article class="font-card" data-font-class="f-dance">
+                  <div class="font-label">Dancing Script</div>
+                  <div class="font-preview f-dance" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-satisfy">
+                  <div class="font-label">Satisfy</div>
+                  <div class="font-preview f-satisfy" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-cookie">
+                  <div class="font-label">Cookie</div>
+                  <div class="font-preview f-cookie" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-kaushan">
+                  <div class="font-label">Kaushan Script</div>
+                  <div class="font-preview f-kaushan" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-yellow">
+                  <div class="font-label">Yellowtail</div>
+                  <div class="font-preview f-yellow" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-marck">
+                  <div class="font-label">Marck Script</div>
+                  <div class="font-preview f-marck" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+
+                <article class="font-card" data-font-class="f-oleo">
+                  <div class="font-label">Oleo Script</div>
+                  <div class="font-preview f-oleo" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-dafoe">
+                  <div class="font-label">Mr Dafoe</div>
+                  <div class="font-preview f-dafoe" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-seaweed">
+                  <div class="font-label">Seaweed Script</div>
+                  <div class="font-preview f-seaweed" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-roch">
+                  <div class="font-label">Rochester</div>
+                  <div class="font-preview f-roch" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-ital">
+                  <div class="font-label">Italianno</div>
+                  <div class="font-preview f-ital" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-callig">
+                  <div class="font-label">Calligraffitti</div>
+                  <div class="font-preview f-callig" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+
+                <article class="font-card" data-font-class="f-damion">
+                  <div class="font-label">Damion</div>
+                  <div class="font-preview f-damion" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-qwig">
+                  <div class="font-label">Qwigley</div>
+                  <div class="font-preview f-qwig" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-gwen">
+                  <div class="font-label">Gwendolyn</div>
+                  <div class="font-preview f-gwen" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-petit">
+                  <div class="font-label">Petit Formal Script</div>
+                  <div class="font-preview f-petit" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-meie">
+                  <div class="font-label">Meie Script</div>
+                  <div class="font-preview f-meie" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-pinyon">
+                  <div class="font-label">Pinyon Script</div>
+                  <div class="font-preview f-pinyon" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+
+                <article class="font-card" data-font-class="f-fuggles">
+                  <div class="font-label">Fuggles</div>
+                  <div class="font-preview f-fuggles" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-euphoria">
+                  <div class="font-label">Euphoria Script</div>
+                  <div class="font-preview f-euphoria" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-monte">
+                  <div class="font-label">MonteCarlo</div>
+                  <div class="font-preview f-monte" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-font-class="f-winds">
+                  <div class="font-label">WindSong</div>
+                  <div class="font-preview f-winds" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+              </div>
+
+              <!-- Trending -->
+              <section class="subsection">
+                <h3 class="subsection-title">Trending Calligraphy Fonts</h3>
+                <div class="pill-row" id="trendingRow">
+                  <button class="pill" type="button" data-trend="f-gv">Great Vibes</button>
+                  <button class="pill" type="button" data-trend="f-alex">Alex Brush</button>
+                  <button class="pill" type="button" data-trend="f-paris">Parisienne</button>
+                  <button class="pill" type="button" data-trend="f-sac">Sacramento</button>
+                  <button class="pill" type="button" data-trend="f-winds">WindSong</button>
+                  <button class="pill" type="button" data-trend="f-kaushan">Kaushan</button>
+                </div>
+              </section>
+
+              <!-- Compare -->
+              <section class="compare">
+                <div class="section-head">
+                  <h3 class="section-title">Compare Fonts Side-by-Side</h3>
+                  <p class="section-desc">Use the same text and compare three premium styles at once.</p>
+                </div>
+
+                <div class="compare-grid">
+                  <div class="compare-col">
+                    <label class="label">Font A</label>
+                    <select data-compare="a">
+                      <option value="f-gv" selected>Great Vibes</option>
+                      <option value="f-alex">Alex Brush</option>
+                      <option value="f-paris">Parisienne</option>
+                      <option value="f-sac">Sacramento</option>
+                      <option value="f-winds">WindSong</option>
+                    </select>
+                    <div class="compare-preview f-gv" data-compare-preview="a">Preview Text</div>
+                  </div>
+
+                  <div class="compare-col">
+                    <label class="label">Font B</label>
+                    <select data-compare="b">
+                      <option value="f-alex" selected>Alex Brush</option>
+                      <option value="f-gv">Great Vibes</option>
+                      <option value="f-paris">Parisienne</option>
+                      <option value="f-sac">Sacramento</option>
+                      <option value="f-winds">WindSong</option>
+                    </select>
+                    <div class="compare-preview f-alex" data-compare-preview="b">Preview Text</div>
+                  </div>
+
+                  <div class="compare-col">
+                    <label class="label">Font C</label>
+                    <select data-compare="c">
+                      <option value="f-paris" selected>Parisienne</option>
+                      <option value="f-gv">Great Vibes</option>
+                      <option value="f-alex">Alex Brush</option>
+                      <option value="f-sac">Sacramento</option>
+                      <option value="f-winds">WindSong</option>
+                    </select>
+                    <div class="compare-preview f-paris" data-compare-preview="c">Preview Text</div>
+                  </div>
+                </div>
+              </section>
+            </section>
+
+            <!-- Instagram panel -->
+            <section id="panel-ig" class="panel" role="tabpanel">
+              <div class="section-head" id="instagram">
+                <h2 class="section-title">Instagram Fonts</h2>
+                <p class="section-desc">Unicode styles for bio/captions. Copy and paste into Instagram.</p>
+              </div>
+
+              <div class="font-grid" id="igGrid">
+                <article class="font-card" data-ig="bold">
+                  <div class="font-label">Bold</div>
+                  <div class="font-preview" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-ig="italic">
+                  <div class="font-label">Italic</div>
+                  <div class="font-preview" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-ig="bolditalic">
+                  <div class="font-label">Bold Italic</div>
+                  <div class="font-preview" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-ig="monospace">
+                  <div class="font-label">Monospace</div>
+                  <div class="font-preview" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-ig="smallcaps">
+                  <div class="font-label">Small Caps</div>
+                  <div class="font-preview" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+                <article class="font-card" data-ig="bubble">
+                  <div class="font-label">Bubble</div>
+                  <div class="font-preview" data-preview>Preview Text</div><button class="copy-btn"
+                    data-copy>Copy</button>
+                </article>
+              </div>
+            </section>
+
+          </div>
+        </section>
+
+        <!-- Premium features -->
+        <section id="pricing" style="margin-top:28px;">
+          <div class="section-head">
+            <h2 class="section-title">Unlock Premium Features</h2>
+            <p class="section-desc">UI only for now — downloads later.</p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <h3 class="card-title">PNG Download</h3>
+              <p class="card-desc">Export clean PNG for socials and web.</p>
+            </article>
+            <article class="card">
+              <h3 class="card-title">SVG Download</h3>
+              <p class="card-desc">Vector export for logos and printing.</p>
+            </article>
+            <article class="card">
+              <h3 class="card-title">High Resolution</h3>
+              <p class="card-desc">2× / 4× quality for premium clarity.</p>
+            </article>
+            <article class="card">
+              <h3 class="card-title">Commercial License</h3>
+              <p class="card-desc">Optional license for client work.</p>
+            </article>
+            <article class="card">
+              <h3 class="card-title">No Watermark</h3>
+              <p class="card-desc">Clean branding-ready exports.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Tips -->
+        <section id="tips" style="margin-top:28px;">
+          <div class="section-head">
+            <h2 class="section-title">Calligraphy Tips &amp; Guides</h2>
+            <p class="section-desc">3 short guides to get better results fast.</p>
+          </div>
+
+          <div class="cards cards-3">
+            <article class="card">
+              <h3 class="card-title">Pick a Signature Font</h3>
+              <p class="card-desc">Legible + premium beats messy flourish.</p><a class="card-cta" href="#">Read More
+                →</a>
+            </article>
+            <article class="card">
+              <h3 class="card-title">Spacing Mistakes</h3>
+              <p class="card-desc">Bad spacing kills the luxury feel instantly.</p><a class="card-cta" href="#">Read
+                More
+                →</a>
+            </article>
+            <article class="card">
+              <h3 class="card-title">Bio Fonts that Convert</h3>
+              <p class="card-desc">Readable bios look more trustworthy.</p><a class="card-cta" href="#">Read More →</a>
+            </article>
+          </div>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">FontiFy</div>
+        <p class="footer-text">Premium font generator for calligraphy + Instagram. Built for speed and future expansion.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-title">Quick Links</div>
+        <a href="#calligraphy">Calligraphy</a>
+        <a href="#instagram">Instagram</a>
+        <a href="#tips">Tips</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+
+      <div>
+        <div class="footer-title">Contact</div>
+        <p class="footer-text">Email: hello@yourdomain.com</p>
+        <div class="social">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="YouTube">▶</a>
         </div>
       </div>
-    </header>
+    </div>
 
-    <main class="app-main container generator-layout" data-font-type="calligraphy">
-      <!-- Top Row: Input -->
-      <section class="generator-header-col">
-        <div class="input-card">
-          <textarea id="main-input" placeholder="Type your text here to preview..." aria-label="Text to preview"
-            rows="2"></textarea>
-          <div class="input-footer">
-            <span class="char-count" id="char-count">0 / 200</span>
-            <button id="reset-btn" class="reset-btn">Reset</button>
-          </div>
-        </div>
-      </section>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> FontiFy. All rights reserved.</span>
+    </div>
+  </footer>
 
-      <!-- Bottom Row: 2-Column Previews -->
-      <section class="generator-main-col">
-        <div class="preview-area" id="preview-container">
-          <!-- Preview rows rendered by JS -->
-        </div>
-      </section>
-    </main>
-  </div>
   <script src="./js/app.js"></script>
 </body>
 
