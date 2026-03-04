@@ -21,16 +21,23 @@
 
 body {
   font-family: var(--font-ui);
-  background-color: var(--clr-bg);
+  background-color: #ffffff;
   color: var(--clr-text);
   line-height: 1.5;
   min-height: 100vh;
 }
 
-.container {
+.page-wrapper {
+  background-color: var(--clr-bg);
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .app-header {
