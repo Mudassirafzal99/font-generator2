@@ -54,12 +54,10 @@
     counter.textContent = `${userText.value.length} / ${userText.maxLength || 200}`;
   };
 
-  // Instagram Unicode maps
+  // Unicode maps
   const mapAZ = (startUpper, startLower) => {
-    const A = "A".charCodeAt(0),
-      Z = "Z".charCodeAt(0);
-    const a = "a".charCodeAt(0),
-      z = "z".charCodeAt(0);
+    const A = "A".charCodeAt(0), Z = "Z".charCodeAt(0);
+    const a = "a".charCodeAt(0), z = "z".charCodeAt(0);
     const map = new Map();
     for (let i = 0; i <= Z - A; i++) {
       map.set(String.fromCharCode(A + i), String.fromCodePoint(startUpper + i));
@@ -67,51 +65,89 @@
     }
     return map;
   };
-  const MAP_BOLD = mapAZ(0x1D400, 0x1D41A);
-  const MAP_ITALIC = mapAZ(0x1D434, 0x1D44E);
-  const MAP_BOLDITALIC = mapAZ(0x1D468, 0x1D482);
-  const MAP_MONO = mapAZ(0x1D670, 0x1D68A);
+
+  const MAPS = {
+    bold: mapAZ(0x1D400, 0x1D41A),
+    italic: mapAZ(0x1D434, 0x1D44E),
+    bolditalic: mapAZ(0x1D468, 0x1D482),
+    monospace: mapAZ(0x1D670, 0x1D68A),
+    script: new Map([...mapAZ(0x1D49C, 0x1D4B6), ['B', 'ℬ'], ['E', 'ℰ'], ['F', 'ℱ'], ['H', 'ℋ'], ['I', 'ℐ'], ['L', 'ℒ'], ['M', 'ℳ'], ['R', 'ℛ'], ['e', 'ℯ'], ['g', 'ℊ'], ['o', 'ℴ']]),
+    boldscript: mapAZ(0x1D4D0, 0x1D4EA),
+    fraktur: new Map([...mapAZ(0x1D504, 0x1D51E), ['C', 'ℭ'], ['H', 'ℌ'], ['I', 'ℐ'], ['R', 'ℜ'], ['Z', 'ℨ']]),
+    boldfraktur: mapAZ(0x1D56C, 0x1D586),
+    doublestruck: new Map([...mapAZ(0x1D538, 0x1D552), ['C', 'ℂ'], ['H', 'ℍ'], ['N', 'ℕ'], ['P', 'ℙ'], ['Q', 'ℚ'], ['R', 'ℝ'], ['Z', 'ℤ']]),
+    sans: mapAZ(0x1D5A0, 0x1D5BA),
+    sansbold: mapAZ(0x1D5D4, 0x1D5EE),
+    sansitalic: mapAZ(0x1D608, 0x1D622),
+    sansbolditalic: mapAZ(0x1D63C, 0x1D656),
+    fullwidth: (() => {
+      const map = new Map();
+      const chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+      for (let i = 0; i < chars.length; i++) {
+        map.set(chars[i], String.fromCharCode(0xFF01 + i));
+      }
+      return map;
+    })(),
+  };
 
   const applyMap = (txt, map) => txt.split("").map(ch => map.get(ch) || ch).join("");
 
-  const toSmallCaps = (txt) => {
-    const small = {
-      a: "ᴀ", b: "ʙ", c: "ᴄ", d: "ᴅ", e: "ᴇ", f: "ғ", g: "ɢ", h: "ʜ", i: "ɪ", j: "ᴊ",
-      k: "ᴋ", l: "ʟ", m: "ᴍ", n: "ɴ", o: "ᴏ", p: "ᴘ", q: "ǫ", r: "ʀ", s: "s", t: "ᴛ",
-      u: "ᴜ", v: "ᴠ", w: "ᴡ", x: "x", y: "ʏ", z: "ᴢ"
-    };
-    return txt.split("").map(ch => small[ch.toLowerCase()] || ch).join("");
-  };
-
-  const toBubble = (txt) => {
-    const A = "A".charCodeAt(0),
-      Z = "Z".charCodeAt(0);
-    const a = "a".charCodeAt(0),
-      z = "z".charCodeAt(0);
-    return txt.split("").map(ch => {
-      const c = ch.charCodeAt(0);
-      if (c >= A && c <= Z) return String.fromCodePoint(0x24B6 + (c - A));
-      if (c >= a && c <= z) return String.fromCodePoint(0x24D0 + (c - a));
-      return ch;
-    }).join("");
-  };
-
   const transformIG = (txt, style) => {
+    if (MAPS[style]) return applyMap(txt, MAPS[style]);
+
     switch (style) {
-      case "bold":
-        return applyMap(txt, MAP_BOLD);
-      case "italic":
-        return applyMap(txt, MAP_ITALIC);
-      case "bolditalic":
-        return applyMap(txt, MAP_BOLDITALIC);
-      case "monospace":
-        return applyMap(txt, MAP_MONO);
       case "smallcaps":
-        return toSmallCaps(txt);
+        const small = {
+          a: "ᴀ", b: "ʙ", c: "ᴄ", d: "ᴅ", e: "ᴇ", f: "ғ", g: "ɢ", h: "ʜ", i: "ɪ", j: "ᴊ",
+          k: "ᴋ", l: "ʟ", m: "ᴍ", n: "ɴ", o: "ᴏ", p: "ᴘ", q: "ǫ", r: "ʀ", s: "s", t: "ᴛ",
+          u: "ᴜ", v: "ᴠ", w: "ᴡ", x: "x", y: "ʏ", z: "ᴢ"
+        };
+        return txt.split("").map(ch => small[ch.toLowerCase()] || ch).join("");
       case "bubble":
-        return toBubble(txt);
-      default:
-        return txt;
+        return txt.split("").map(ch => {
+          const c = ch.charCodeAt(0);
+          if (c >= 65 && c <= 90) return String.fromCodePoint(0x24B6 + (c - 65));
+          if (c >= 97 && c <= 122) return String.fromCodePoint(0x24D0 + (c - 97));
+          return ch;
+        }).join("");
+      case "blackbubble":
+        return txt.split("").map(ch => {
+          const c = ch.charCodeAt(0);
+          if (c >= 65 && c <= 90) return String.fromCodePoint(0x1F150 + (c - 65));
+          if (c >= 97 && c <= 122) return String.fromCodePoint(0x1F150 + (c - 97));
+          return ch;
+        }).join("");
+      case "square":
+        return txt.split("").map(ch => {
+          const c = ch.charCodeAt(0);
+          if (c >= 65 && c <= 90) return String.fromCodePoint(0x1F170 + (c - 65));
+          if (c >= 97 && c <= 122) return String.fromCodePoint(0x1F170 + (c - 97));
+          return ch;
+        }).join("");
+      case "blacksquare":
+        return txt.split("").map(ch => {
+          const c = ch.charCodeAt(0);
+          if (c >= 65 && c <= 90) return String.fromCodePoint(0x1F180 + (c - 65));
+          if (c >= 97 && c <= 122) return String.fromCodePoint(0x1F180 + (c - 97));
+          return ch;
+        }).join("");
+      case "strikethrough": return txt.split("").map(ch => ch + "\u0336").join("");
+      case "underline": return txt.split("").map(ch => ch + "\u0332").join("");
+      case "doubleunderline": return txt.split("").map(ch => ch + "\u0333").join("");
+      case "slash": return txt.split("").map(ch => ch + "\u0338").join("");
+      case "wavy": return txt.split("").map(ch => ch + "\u0330").join("");
+      case "sparkles": return "✨ " + txt + " ✨";
+      case "hearts": return "💕 " + txt + " 💕";
+      case "stars": return "⭐ " + txt + " ⭐";
+      case "reversed": return txt.split("").reverse().join("");
+      case "knight": return "⚔️ " + txt + " ⚔️";
+      case "arrow": return "➴ " + txt + " ➶";
+      case "wings": return "꧁ " + txt + " ꧂";
+      case "bracket": return "【 " + txt + " 】";
+      case "music": return "🎵 " + txt + " 🎵";
+      case "flower": return "✿ " + txt + " ✿";
+      case "sunny": return "☀ " + txt + " ☀";
+      default: return txt;
     }
   };
 
@@ -173,16 +209,28 @@
       btn.textContent = original;
     }, 1500);
   }
-  $$("[data-copy]").forEach(btn => {
-    btn.addEventListener("click", async () => {
+
+  // Common copy listener
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("[data-copy], [data-copy-special]");
+    if (!btn) return;
+
+    let text = "";
+    if (btn.hasAttribute("data-copy")) {
       const wrap = btn.closest("article");
       const prev = wrap?.querySelector("[data-preview]");
-      const text = prev?.textContent || getText();
-      try {
-        await copyToClipboard(text);
-      } catch { }
+      text = prev?.textContent || getText();
+    } else {
+      // Special copy (e.g. from trending)
+      const style = btn.getAttribute("data-copy-special");
+      const raw = getText();
+      text = style.startsWith("f-") ? raw : transformIG(raw, style);
+    }
+
+    try {
+      await copyToClipboard(text);
       setCopied(btn);
-    });
+    } catch { }
   });
 
   // Trending scroll
@@ -193,20 +241,50 @@
       if (!b) return;
       const cls = b.getAttribute("data-trend");
       const target = document.querySelector(`.${cls}`);
-      if (target) target.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
 
-  // Compare dropdowns: swap classes
+  // Compare logic: dropdown change
   $$("select[data-compare]").forEach(sel => {
     sel.addEventListener("change", () => {
       const key = sel.getAttribute("data-compare");
       const prev = document.querySelector(`[data-compare-preview="${key}"]`);
       if (!prev) return;
-      prev.className = "compare-preview " + sel.value;
+
+      const val = sel.value;
+      prev.textContent = val.startsWith("f-") ? getText() : transformIG(getText(), val);
+      prev.className = "compare-preview " + (val.startsWith("f-") ? val : "");
     });
   });
+
+  // Compare search logic
+  $$(".font-search").forEach(input => {
+    input.addEventListener("input", () => {
+      const q = input.value.toLowerCase();
+      const key = input.dataset.search;
+      const select = document.querySelector(`select[data-compare="${key}"]`);
+      if (!select) return;
+
+      Array.from(select.options).forEach(opt => {
+        const match = opt.text.toLowerCase().includes(q);
+        opt.style.display = match ? "" : "none";
+      });
+    });
+  });
+
+  // Sync compare previews on text change
+  const syncCompare = () => {
+    $$("select[data-compare]").forEach(sel => {
+      const key = sel.getAttribute("data-compare");
+      const prev = document.querySelector(`[data-compare-preview="${key}"]`);
+      if (!prev) return;
+      const val = sel.value;
+      prev.textContent = val.startsWith("f-") ? getText() : transformIG(getText(), val);
+    });
+  };
+
+  if (userText) {
+    userText.addEventListener("input", syncCompare);
+  }
 })();
