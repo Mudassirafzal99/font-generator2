@@ -324,6 +324,24 @@ a:hover {
   border-color: rgba(212, 175, 55, .55);
 }
 
+.tab-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--navy);
+  opacity: .7;
+}
+
+.tab-link:hover {
+  opacity: 1;
+  background: rgba(212, 175, 55, .10);
+  border-color: rgba(212, 175, 55, .40);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
 .tool-actions {
   display: flex;
   align-items: center;
@@ -920,8 +938,20 @@ footer a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   border-top: 1px solid var(--line);
   padding-top: 16px;
+}
+
+.trending-name {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--navy);
+  opacity: 0.75;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .trending-tag {
@@ -930,6 +960,7 @@ footer a:hover {
   text-transform: uppercase;
   color: var(--gold);
   letter-spacing: 1px;
+  flex-shrink: 0;
 }
 
 .btn-copy-small {
