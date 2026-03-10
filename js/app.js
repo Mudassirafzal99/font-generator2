@@ -287,4 +287,88 @@
   if (userText) {
     userText.addEventListener("input", syncCompare);
   }
+
+  // ─── PNG Download ───
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("[data-download]");
+    if (!btn) return;
+
+    const card = btn.closest(".font-card");
+    if (!card) return;
+    const previewEl = card.querySelector("[data-preview]");
+    if (!previewEl) return;
+
+    // Get font name for the filename
+    const labelEl = card.querySelector(".font-label");
+    const fontName = (labelEl?.textContent || "font").trim().replace(/\s+/g, "-").toLowerCase();
+
+    // Show processing spinner
+    const dlIcon = btn.querySelector(".dl-icon");
+    btn.classList.add("is-processing");
+    if (dlIcon) dlIcon.textContent = "";
+    const textNode = [...btn.childNodes].find(n => n.nodeType === Node.TEXT_NODE);
+
+    try {
+      if (typeof html2canvas === "undefined") {
+        throw new Error("html2canvas not loaded");
+      }
+
+      // Create an off-screen container for exactly 1200x630 rendering
+      const offscreen = document.createElement("div");
+      offscreen.style.position = "absolute";
+      offscreen.style.left = "-9999px";
+      offscreen.style.top = "-9999px";
+      offscreen.style.width = "1200px";
+      offscreen.style.height = "630px";
+      offscreen.style.display = "flex";
+      offscreen.style.alignItems = "center";
+      offscreen.style.justifyContent = "center";
+      offscreen.style.background = "transparent";
+      offscreen.style.color = getComputedStyle(previewEl).color;
+      offscreen.style.fontFamily = getComputedStyle(previewEl).fontFamily;
+      offscreen.style.fontSize = "160px"; // Large font size for 1200x630 canvas
+      offscreen.style.textAlign = "center";
+      offscreen.style.padding = "40px";
+      offscreen.style.boxSizing = "border-box";
+      offscreen.style.wordBreak = "break-word";
+      offscreen.textContent = previewEl.textContent;
+
+      document.body.appendChild(offscreen);
+
+      const canvas = await html2canvas(offscreen, {
+        backgroundColor: null, // null ensures transparent background
+        width: 1200,
+        height: 630,
+        scale: 1, // EXACT size
+        useCORS: true,
+        logging: false,
+      });
+
+      document.body.removeChild(offscreen);
+
+      const link = document.createElement("a");
+      link.download = `fontify-${fontName}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+
+      // Show done state
+      btn.classList.remove("is-processing");
+      btn.classList.add("is-done");
+      if (dlIcon) dlIcon.textContent = "✓";
+      if (textNode) textNode.textContent = " Done";
+
+      setTimeout(() => {
+        btn.classList.remove("is-done");
+        if (dlIcon) dlIcon.textContent = "⬇";
+        if (textNode) textNode.textContent = " PNG";
+      }, 2000);
+
+    } catch (err) {
+      btn.classList.remove("is-processing");
+      if (dlIcon) dlIcon.textContent = "⬇";
+      if (textNode) textNode.textContent = " PNG";
+      console.error("PNG download failed:", err);
+    }
+  });
 })();
+
